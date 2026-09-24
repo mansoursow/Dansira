@@ -2,12 +2,11 @@
 // Aucune donnée financière ici : chiffre d'affaires, résultat, anomalies…
 // seront renseignés à l'intérieur de chaque mission (import balance / FEC).
 
+// Informations propres au poste et à la licence.
+// Les informations du cabinet (nom, exercice, signataire…) sont dans Paramétrage (store).
 export const cabinet = {
-  nom: 'Cabinet ADOC Audit & Conseil',
-  exercice: 2026,
   poste: 'AUDIT',
   utilisateur: 'AUDIT',
-  signataire: 'Signataire 1',
   licences: 1,
   version: '0.1.0',
   referentiel: 'SYSCOHADA révisé',
@@ -28,6 +27,12 @@ export const etapesDemarrage = [
 ]
 
 export const actualites = [
+  {
+    date: '2026-09-24',
+    titre: 'Nouveau : Dossiers clients & Paramétrage',
+    texte:
+      "Retrouvez chaque client avec l'historique de ses missions. Renseignez les informations du cabinet et consultez le plan comptable SYSCOHADA dans Paramétrage.",
+  },
   {
     date: '2026-09-24',
     titre: 'Nouveau : Missions & Droits',

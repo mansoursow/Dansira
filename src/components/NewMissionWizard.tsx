@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
 import { FilePlus2, Copy, CalendarClock, Check, ArrowLeft, ArrowRight, Plus, Trash2, Lock } from 'lucide-react'
 import Modal from './Modal'
+import ClientForm, { clientVide } from './ClientForm'
 import {
-  useStore, uid, addYear, fmtDate, elementsReprise, elementLabel, formesJuridiques, rolesMission, statutLabels,
+  useStore, addYear, fmtDate, elementsReprise, elementLabel, rolesMission, statutLabels,
   type Client, type MembreEquipe, type ModeCreation, type Mission,
 } from '../store'
 import { typesMission } from '../data/cabinet'
@@ -25,24 +26,22 @@ const modes: { id: ModeCreation; titre: string; texte: string; icon: typeof File
 
 const etapes = ['Mode', 'Source', 'Client & mission', 'Équipe', 'Récapitulatif']
 
-const clientVide = (): Client => ({
-  id: uid(), raisonSociale: '', sigle: '', formeJuridique: 'SA', rccm: '', nif: '', siege: '', activite: '', dirigeant: '',
-})
-
 const anneeDefaut = new Date().getFullYear() - 1
 
 export default function NewMissionWizard({ init }: { init: WizardInit }) {
   const { state, client: getClient, collaborateur, profil, grade, creerMission } = useStore()
   const { fermerWizard, toast, aller } = useUi()
 
-  const [etape, setEtape] = useState(init.mode ? 1 : 0)
+  // Mission vierge : pas d'étape Source. Clonage / N+1 : on démarre au choix de la source.
+  const [etape, setEtape] = useState(init.mode === 'vierge' ? 2 : init.mode ? 1 : 0)
   const [mode, setMode] = useState<ModeCreation>(init.mode ?? 'vierge')
   const [sourceId, setSourceId] = useState<string | undefined>(init.sourceId)
   const [reprise, setReprise] = useState<string[]>(
     init.mode && init.mode !== 'vierge' ? elementsReprise[init.mode].filter((e) => e.defaut).map((e) => e.id) : [],
   )
-  const [clientChoix, setClientChoix] = useState<string>('nouveau')
-  const [client, setClient] = useState<Client>(clientVide)
+  const clientInitial = init.clientId ? getClient(init.clientId) : undefined
+  const [clientChoix, setClientChoix] = useState<string>(clientInitial?.id ?? 'nouveau')
+  const [client, setClient] = useState<Client>(clientInitial ?? clientVide())
   const [mission, setMission] = useState({
     type: typesMission[0],
     exercice: anneeDefaut,
@@ -246,21 +245,7 @@ export default function NewMissionWizard({ init }: { init: WizardInit }) {
                 </select>
               </label>
             )}
-            <div className="form-grid">
-              <Field label="Raison sociale *" value={client.raisonSociale} disabled={verrouille} onChange={(v) => setClient({ ...client, raisonSociale: v })} />
-              <Field label="Sigle" value={client.sigle} disabled={verrouille} onChange={(v) => setClient({ ...client, sigle: v })} />
-              <label className="field">
-                <span>Forme juridique</span>
-                <select value={client.formeJuridique} disabled={verrouille} onChange={(e) => setClient({ ...client, formeJuridique: e.target.value })}>
-                  {formesJuridiques.map((f) => <option key={f}>{f}</option>)}
-                </select>
-              </label>
-              <Field label="N° RCCM" value={client.rccm} disabled={verrouille} onChange={(v) => setClient({ ...client, rccm: v })} />
-              <Field label="NIF / NINEA" value={client.nif} disabled={verrouille} onChange={(v) => setClient({ ...client, nif: v })} />
-              <Field label="Dirigeant" value={client.dirigeant} disabled={verrouille} onChange={(v) => setClient({ ...client, dirigeant: v })} />
-              <Field label="Siège social" value={client.siege} disabled={verrouille} onChange={(v) => setClient({ ...client, siege: v })} />
-              <Field label="Activité" value={client.activite} disabled={verrouille} onChange={(v) => setClient({ ...client, activite: v })} />
-            </div>
+            <ClientForm client={client} onChange={setClient} disabled={verrouille} />
           </fieldset>
 
           <fieldset>

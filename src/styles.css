@@ -527,6 +527,29 @@ input[type='checkbox'], input[type='radio'] { accent-color: var(--orange); }
 }
 .form-grid--2 { grid-template-columns: 1fr 1fr; }
 
+/* ---------- Dossiers clients / Paramétrage ---------- */
+.client-grid { display: grid; grid-template-columns: minmax(300px, 1fr) minmax(0, 2fr); gap: 20px; align-items: start; }
+.form-actions { display: flex; justify-content: flex-end; align-items: center; gap: 10px; }
+.plan { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.plan > li { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.plan > li.is-open { border-color: #cdd6e8; }
+.plan__classe {
+  width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border: 0; background: var(--surface); text-align: left;
+}
+.plan__classe:hover { background: var(--surface-2); }
+.plan__num {
+  flex-shrink: 0; width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center;
+  background: var(--navy); color: #fff; font-family: var(--mono); font-weight: 600; font-size: 13px;
+}
+.plan__lib { flex: 1; font-weight: 600; color: var(--navy); font-size: 14px; }
+.plan__comptes { list-style: none; margin: 0; padding: 4px 14px 10px 54px; background: var(--surface-2); border-top: 1px solid var(--border); }
+.plan__comptes li { display: flex; gap: 14px; padding: 6px 0; font-size: 13.5px; border-bottom: 1px dashed var(--border); }
+.plan__comptes li:last-child { border-bottom: 0; }
+.plan__comptes .mono { color: var(--orange-600); font-weight: 600; min-width: 24px; }
+@media (max-width: 1100px) { .client-grid { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .plan .tag { display: none; } .plan__comptes { padding-left: 14px; } }
+
 /* ---------- Responsive ---------- */
 @media (min-width: 1700px) { .kpis { grid-template-columns: repeat(6, 1fr); } .steps ol { grid-template-columns: repeat(4, 1fr); } }
 @media (max-width: 1200px) {

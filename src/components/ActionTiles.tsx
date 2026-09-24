@@ -5,7 +5,7 @@ import { useUi } from '../ui'
 type Action = { label: string; run: () => void }
 
 export default function ActionTiles() {
-  const { aller, ouvrirWizard, soon } = useUi()
+  const { aller, ouvrirWizard } = useUi()
   const [openId, setOpenId] = useState<string | null>(null)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -29,9 +29,13 @@ export default function ActionTiles() {
       ],
     },
     {
-      id: 'parametrage', label: 'Paramétrage', icon: Settings, ouvrir: () => soon('Paramétrage'),
-      actions: ['Informations du cabinet', 'Plan comptable SYSCOHADA', 'Seuils de signification', 'Modèles de documents']
-        .map((l) => ({ label: l, run: () => soon(l) })),
+      id: 'parametrage', label: 'Paramétrage', icon: Settings, ouvrir: () => aller('parametrage'),
+      actions: [
+        { label: 'Informations du cabinet', run: () => aller('parametrage', { tab: 'cabinet' }) },
+        { label: 'Plan comptable SYSCOHADA', run: () => aller('parametrage', { tab: 'plan' }) },
+        { label: 'Modèles de documents', run: () => aller('parametrage', { tab: 'modeles' }) },
+        { label: 'Dossiers clients', run: () => aller('clients') },
+      ],
     },
   ]
 

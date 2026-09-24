@@ -19,6 +19,20 @@ export interface Client {
   dirigeant: string
 }
 
+/** Informations du cabinet (module Paramétrage). */
+export interface Cabinet {
+  nom: string
+  sigle: string
+  adresse: string
+  ville: string
+  pays: string
+  telephone: string
+  email: string
+  numeroOrdre: string // n° d'inscription au tableau de l'Ordre
+  exercice: number // exercice de travail du cabinet
+  signataire: string // associé signataire principal
+}
+
 export interface MembreEquipe {
   collaborateurId: string
   role: string
@@ -78,6 +92,7 @@ export interface Collaborateur {
 
 export interface State {
   version: number
+  cabinet: Cabinet
   clients: Client[]
   missions: Mission[]
   collaborateurs: Collaborateur[]
@@ -193,6 +208,18 @@ const VERSION = 2
 
 const etatInitial: State = {
   version: VERSION,
+  cabinet: {
+    nom: 'Cabinet ADOC Audit & Conseil',
+    sigle: 'ADOC',
+    adresse: '',
+    ville: '',
+    pays: '',
+    telephone: '',
+    email: '',
+    numeroOrdre: '',
+    exercice: 2026,
+    signataire: '',
+  },
   clients: [],
   missions: [],
   collaborateurs: [
@@ -295,6 +322,18 @@ function useStoreValue() {
     return mission
   }
 
+  const majCabinet = (patch: Partial<Cabinet>) => setState((s) => ({ ...s, cabinet: { ...s.cabinet, ...patch } }))
+
+  const enregistrerClient = (c: Client) =>
+    setState((s) => ({
+      ...s,
+      clients: s.clients.some((x) => x.id === c.id) ? s.clients.map((x) => (x.id === c.id ? c : x)) : [...s.clients, c],
+    }))
+
+  /** Supprime un client sans mission. */
+  const supprimerClient = (id: string) =>
+    setState((s) => (s.missions.some((m) => m.clientId === id) ? s : { ...s, clients: s.clients.filter((c) => c.id !== id) }))
+
   const majMission = (id: string, patch: Partial<Mission>) =>
     setState((s) => ({ ...s, missions: s.missions.map((m) => (m.id === id ? { ...m, ...patch } : m)) }))
 
@@ -352,6 +391,7 @@ function useStoreValue() {
 
   return {
     state, client, collaborateur, profil, grade,
+    majCabinet, enregistrerClient, supprimerClient,
     creerMission, majMission, cloturerMission, supprimerMission,
     enregistrerCollaborateur, enregistrerProfil, supprimerProfil, affecter, retirer,
   }

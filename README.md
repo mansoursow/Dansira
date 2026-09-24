@@ -7,6 +7,8 @@ Logiciel de gestion des missions d'audit du **Cabinet ADOC Audit & Conseil**, in
 - **Tableau de bord** : indicateurs du cabinet, tuiles Missions / Droits / Paramétrage, missions récentes.
 - **Missions** : création vierge, clonage, reprise de l'arrêté N → N+1, clôture (arrêté), page de travail de la mission.
 - **Droits** : collaborateurs et grades (Stagiaire, A1/A2, S1–S3, Chef de mission, AM, M1–M3, SM/Director), habilitations, affectations aux missions.
+- **Dossiers clients** : identité des entités auditées et historique de leurs missions.
+- **Paramétrage** : informations du cabinet, exercice, signataire, plan comptable SYSCOHADA révisé.
 - **Memento** : guide d'utilisation intégré (`src/data/memento.ts`), mis à jour à chaque module.
 
 ## Démarrer

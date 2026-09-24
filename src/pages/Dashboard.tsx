@@ -41,7 +41,7 @@ export default function Dashboard({ onMenu }: { onMenu: () => void }) {
     <>
       <PageHeader
         titre="Tableau de bord"
-        sousTitre={`${cabinet.nom} — Exercice ${cabinet.exercice}`}
+        sousTitre={`${state.cabinet.nom} — Exercice ${state.cabinet.exercice}`}
         onMenu={onMenu}
         actions={
           <>

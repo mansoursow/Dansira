@@ -2,17 +2,17 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 import type { ModeCreation } from './store'
 
 // Navigation par hash : #/missions, #/droits?tab=profils, #/memento#missions…
-export type Page = 'dashboard' | 'missions' | 'mission' | 'droits' | 'memento'
+export type Page = 'dashboard' | 'missions' | 'mission' | 'clients' | 'client' | 'droits' | 'parametrage' | 'memento'
 
 export interface Route { page: Page; params: URLSearchParams }
 
 function lireRoute(): Route {
   const [chemin, query = ''] = window.location.hash.replace(/^#\/?/, '').split('?')
-  const page = (['missions', 'mission', 'droits', 'memento'].includes(chemin) ? chemin : 'dashboard') as Page
+  const page = (['missions', 'mission', 'clients', 'client', 'droits', 'parametrage', 'memento'].includes(chemin) ? chemin : 'dashboard') as Page
   return { page, params: new URLSearchParams(query) }
 }
 
-export interface WizardInit { mode?: ModeCreation; sourceId?: string }
+export interface WizardInit { mode?: ModeCreation; sourceId?: string; clientId?: string }
 
 interface Ui {
   route: Route
