@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import type { ModeCreation } from './store'
 
 // Navigation par hash : #/missions, #/droits?tab=profils, #/memento#missions…
@@ -22,7 +22,14 @@ interface Ui {
   ouvrirWizard: (init?: WizardInit) => void
   wizard: WizardInit | null
   fermerWizard: () => void
+  /** Retour à la page précédente de l'application (ou au tableau de bord). */
+  retour: () => void
+  peutRevenir: boolean
 }
+
+// Position dans l'historique propre à l'application : 0 = première page ouverte.
+// Elle est mémorisée dans history.state pour ne jamais faire sortir du logiciel.
+const lirePosition = (): number | undefined => (window.history.state as { pos?: number } | null)?.pos
 
 const Ctx = createContext<Ui | null>(null)
 
@@ -30,9 +37,26 @@ export function UiProvider({ children }: { children: ReactNode }) {
   const [route, setRoute] = useState(lireRoute)
   const [message, setMessage] = useState<string | null>(null)
   const [wizard, setWizard] = useState<WizardInit | null>(null)
+  const [position, setPosition] = useState(() => {
+    const p = lirePosition() ?? 0
+    window.history.replaceState({ ...window.history.state, pos: p }, '')
+    return p
+  })
+  const positionRef = useRef(position)
 
   useEffect(() => {
-    const onHash = () => { setRoute(lireRoute()); window.scrollTo(0, 0) }
+    const onHash = () => {
+      // Nouvelle entrée (lien, navigation interne) : on la numérote. Retour / avance : on relit sa position.
+      let p = lirePosition()
+      if (p === undefined) {
+        p = positionRef.current + 1
+        window.history.replaceState({ ...window.history.state, pos: p }, '')
+      }
+      positionRef.current = p
+      setPosition(p)
+      setRoute(lireRoute())
+      window.scrollTo(0, 0)
+    }
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
@@ -56,6 +80,8 @@ export function UiProvider({ children }: { children: ReactNode }) {
     ouvrirWizard: (init = {}) => setWizard(init),
     wizard,
     fermerWizard: () => setWizard(null),
+    peutRevenir: position > 0 || route.page !== 'dashboard',
+    retour: () => (position > 0 ? window.history.back() : aller('dashboard')),
   }
 
   return (

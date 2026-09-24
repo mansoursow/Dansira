@@ -48,7 +48,7 @@ export default function Sidebar({ open, onClose }: { open: boolean; onClose: () 
         </button>
       </div>
       <div className="sidebar__app">
-        <span className="sidebar__app-name">ADOC Audit</span>
+        <span className="sidebar__app-name">DANSIRA</span>
         <span className="sidebar__app-sub">Ex. {state.cabinet.exercice} · {cabinet.referentiel}</span>
       </div>
 

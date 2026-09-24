@@ -41,7 +41,7 @@ export const actualites = [
   },
   {
     date: '2026-09-24',
-    titre: 'Bienvenue sur ADOC Audit',
+    titre: 'Bienvenue sur DANSIRA',
     texte:
       "Votre espace d'audit est prêt. Commencez par créer une mission : les indicateurs financiers du client (chiffre d'affaires, résultat, anomalies) s'afficheront une fois la balance importée.",
   },

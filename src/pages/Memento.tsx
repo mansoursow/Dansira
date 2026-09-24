@@ -20,7 +20,7 @@ export default function Memento({ onMenu }: { onMenu: () => void }) {
 
   return (
     <>
-      <PageHeader titre="Memento" sousTitre={`Guide d'utilisation d'ADOC Audit · mis à jour le ${majMemento}`} onMenu={onMenu} />
+      <PageHeader titre="Memento" sousTitre={`Guide d'utilisation de DANSIRA · mis à jour le ${majMemento}`} onMenu={onMenu} />
       <main className="content memento">
         <nav className="memento__toc card">
           <label className="search">

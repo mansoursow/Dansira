@@ -1,6 +1,6 @@
-# ADOC Audit
+# DANSIRA
 
-Logiciel de gestion des missions d'audit du **Cabinet ADOC Audit & Conseil**, inspiré d'AuditSoft Premier OHADA (référentiel SYSCOHADA révisé).
+Logiciel de gestion des missions d'audit du **Cabinet ADOC Audit & Conseil** — normes ISA, ISRE, ISAE, ISRS, ISQM ; référentiel SYSCOHADA révisé.
 
 ## Modules disponibles
 

@@ -1,4 +1,4 @@
-/* Charte ADOC Audit & Conseil (adoc-consulting.com) */
+/* DANSIRA — charte du Cabinet ADOC Audit & Conseil (adoc-consulting.com) */
 :root {
   --navy: #0a2f73;
   --navy-900: #061f4d;
@@ -138,7 +138,7 @@ h1, h2, h3, p { margin: 0; }
 .btn--ghost { background: var(--surface); color: var(--navy); border-color: var(--border); }
 .btn--ghost:hover { border-color: var(--blue); }
 
-/* ---------- Action tiles (façon AuditSoft) ---------- */
+/* ---------- Tuiles d'action ---------- */
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .tile {
   position: relative; display: flex; height: 132px;
@@ -550,6 +550,19 @@ input[type='checkbox'], input[type='radio'] { accent-color: var(--orange); }
 @media (max-width: 1100px) { .client-grid { grid-template-columns: 1fr; } }
 @media (max-width: 560px) { .plan .tag { display: none; } .plan__comptes { padding-left: 14px; } }
 
+/* ---------- Bouton retour (toutes les pages) ---------- */
+.back-btn {
+  flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 2.5px solid var(--navy); background: var(--surface); color: var(--navy);
+  box-shadow: var(--shadow); transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.1s;
+}
+.back-btn:hover:not(:disabled) { background: var(--navy); color: #fff; }
+.back-btn:active:not(:disabled) { transform: scale(0.95); }
+.back-btn:focus-visible { outline: 3px solid rgba(230, 69, 1, 0.35); outline-offset: 2px; }
+.back-btn:disabled { opacity: 0.3; cursor: default; box-shadow: none; }
+.topbar__titles + .back-btn { margin-left: auto; }
+
 /* ---------- Responsive ---------- */
 @media (min-width: 1700px) { .kpis { grid-template-columns: repeat(6, 1fr); } .steps ol { grid-template-columns: repeat(4, 1fr); } }
 @media (max-width: 1200px) {
@@ -562,7 +575,9 @@ input[type='checkbox'], input[type='radio'] { accent-color: var(--orange); }
   .backdrop { display: block; position: fixed; inset: 0; background: rgba(6, 31, 77, 0.45); z-index: 40; }
   .topbar { padding: 18px 16px 0; flex-wrap: wrap; }
   .topbar__menu { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; color: var(--navy); }
-  .topbar__actions { margin-left: 0; width: 100%; justify-content: space-between; }
+  .topbar__actions { margin-left: 0; width: 100%; justify-content: space-between; order: 4; }
+  .topbar__titles { order: 3; width: 100%; }
+  .back-btn { order: 1; margin-left: auto; width: 42px; height: 42px; }
   .content { padding: 18px 16px 24px; }
   .tiles { grid-template-columns: 1fr; gap: 12px; }
   .tile { height: 88px; }

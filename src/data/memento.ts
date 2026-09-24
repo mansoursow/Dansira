@@ -1,4 +1,4 @@
-// Memento : documentation fonctionnelle d'ADOC Audit.
+// Memento : documentation fonctionnelle de DANSIRA.
 // À compléter à chaque nouveau module validé.
 
 export type Bloc =
@@ -22,20 +22,31 @@ export const memento: Section[] = [
   {
     id: 'presentation',
     titre: 'Présentation',
-    resume: 'Le principe du logiciel et son organisation.',
+    resume: 'Le logiciel et les normes appliquées.',
     blocs: [
-      { type: 'p', texte: "ADOC Audit est le logiciel de gestion des missions d'audit du Cabinet ADOC Audit & Conseil. Il s'inspire du fonctionnement d'AuditSoft Premier OHADA et utilise le référentiel SYSCOHADA révisé." },
-      { type: 'p', texte: "Tout s'organise autour de la mission. Le cabinet ne dispose d'aucun chiffre financier tant qu'aucune mission n'est démarrée : chiffre d'affaires, résultat, bilan et anomalies sont renseignés à l'intérieur de chaque mission (import de la balance), pour un client et un exercice donnés." },
-      { type: 'note', texte: "Le tableau de bord donne donc une vue « cabinet » (missions, clients, échéances, équipe) et non une vue financière d'une entreprise." },
+      { type: 'p', texte: "DANSIRA est le logiciel de gestion des missions d'audit du Cabinet ADOC Audit & Conseil. Il organise les missions, les dossiers clients, les équipes et leurs droits, et accompagne la réalisation des travaux dans le respect des normes professionnelles." },
+      { type: 'h', texte: 'Normes et référentiels' },
+      { type: 'table', entetes: ['Norme / référentiel', 'Objet'], lignes: [
+        ['ISA — normes internationales d’audit (IAASB)', 'Audit des états financiers : missions de commissariat aux comptes'],
+        ['ISRE 2400 / 2410', 'Examen limité d’états financiers historiques / d’informations financières intermédiaires'],
+        ['ISAE 3000 (révisée)', 'Autres missions d’assurance'],
+        ['ISRS 4400 (révisée) / 4410', 'Services connexes : procédures convenues, compilation'],
+        ['ISQM 1 et ISQM 2', 'Gestion de la qualité au sein du cabinet et revue de la qualité des missions'],
+        ['Code d’éthique IESBA', 'Règles d’éthique et d’indépendance des professionnels'],
+        ['Acte uniforme OHADA (AUDCIF) et SYSCOHADA révisé', 'Référentiel comptable des entités auditées'],
+        ['Acte uniforme OHADA (AUSCGIE)', 'Cadre légal du commissariat aux comptes'],
+      ] },
     ],
   },
   {
     id: 'accueil',
     titre: "Écran d'accueil",
-    resume: 'Menu, tuiles, indicateurs et barre d’état.',
+    resume: 'Menu, flèche de retour, tuiles, indicateurs et barre d’état.',
     blocs: [
       { type: 'h', texte: 'Menu latéral' },
       { type: 'p', texte: "Il donne accès aux modules : Tableau de bord, Missions, Dossiers clients, Droits & utilisateurs, Paramétrage, ainsi qu'aux ressources Memento et Tutoriel. Les pages de détail (une mission, un client) restent rattachées à leur module dans le menu. Les entrées marquées « bientôt » sont en cours de construction." },
+      { type: 'h', texte: 'Flèche de retour' },
+      { type: 'p', texte: 'Le bouton rond avec une flèche, en haut à droite de chaque page, ramène à la page précédemment consultée dans DANSIRA (même effet que le retour du navigateur, sans jamais quitter le logiciel). Ouvert directement sur une page, il ramène au tableau de bord ; il est grisé quand il n’y a pas de page précédente.' },
       { type: 'h', texte: 'Les trois tuiles' },
       { type: 'liste', items: [
         'Un clic sur la partie bleue ouvre le module (Missions, Droits ou Paramétrage).',
